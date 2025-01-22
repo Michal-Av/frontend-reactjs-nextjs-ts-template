@@ -1,0 +1,10 @@
+/* TodoCard.css */
+.card{
+width: 25%;
+border: 1px solid #ccc;
+border-radius: 2px;
+padding: 20px;
+margin-bottom: 5px;
+margin-top: 5px;
+margin: 5px;
+}

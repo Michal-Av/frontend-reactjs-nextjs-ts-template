@@ -1,0 +1,10 @@
+/* TodoFooter.css */
+.row{
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.right{
+  text-align: right;
+  align-items: end;
+}

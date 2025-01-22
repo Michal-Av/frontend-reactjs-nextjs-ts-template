@@ -1,0 +1,60 @@
+/* LoginForm.css */
+
+
+
+
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form .left {
+  margin-top: 20px;
+}
+
+.login-form .left input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-form .left input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.login-form .left a {
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.login-form .left a:hover {
+  text-decoration: underline;
+}
+.message{
+  text-align: center;
+  font-size:medium;
+  color :red;
+}
+
+.button {
+  align-items: right;
+  background-color: #007bff; /* Blue color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Add smooth transition effect */
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}

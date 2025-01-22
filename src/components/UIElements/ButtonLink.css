@@ -1,0 +1,13 @@
+.link-button {
+  background: none;
+  border: none;
+  color: #0073D8;
+  cursor: pointer;
+  font-size: inherit;
+  text-align: left;
+  text-decoration: none; /* Remove underline by default */
+}
+
+.link-button:hover {
+  text-decoration: underline; /* Add underline on hover */
+}

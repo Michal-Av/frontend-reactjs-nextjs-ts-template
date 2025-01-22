@@ -1,0 +1,38 @@
+/* header.css */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(to bottom, #002144, #025a77);
+    color: #fff;
+  }
+  
+  .logo img {
+    width: 120px;
+    height: auto;
+  }
+  
+  .user-info {
+    font-size: 20px;
+  }
+  
+  .nav-links {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .nav-links li a:hover {
+    text-decoration: underline;
+  }
+  
