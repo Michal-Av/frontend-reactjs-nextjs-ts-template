@@ -7,7 +7,7 @@ interface ButtonProps{
 
 const Button:React.FC<ButtonProps> = ({ onClick, children }) => {
   return (
-    <button onClick={onClick} style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', padding: '8px 16px', cursor: 'pointer' }}>
+    <button onClick={onClick} style={{ fontFamily: "Figtree", backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', padding: '8px 16px', cursor: 'pointer' }}>
       {children}
     </button>
   );
