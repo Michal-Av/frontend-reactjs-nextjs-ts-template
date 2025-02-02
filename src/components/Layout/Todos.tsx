@@ -30,8 +30,8 @@ const TodoList: React.FC = () => {
   }
 
   return (
-    <div style={{ paddingTop: '10px' }}>
-      <h2>Todo List</h2>
+    <div style={{ padding: '20px' }}>
+      <h2>Todo List</h2><br/>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
         {todos.map(todo => (
           <TodoCard key={todo._id} todo={todo} onComplete={() => onComplete(todo._id)} onDelete={() => onDelete(todo._id)} />

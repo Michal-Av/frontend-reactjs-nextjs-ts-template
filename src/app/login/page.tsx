@@ -1,139 +1,102 @@
+// Root Component: LoginComp
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Form from '@/components/Containers/Form/Form';
-import ButtonLink from '@/components/UIElements/ButtonLink';
-import Image from 'next/image';
+import { Box, Paper, Typography } from '@mui/material';
+import FormComponent from '../../components/Containers/Form/FormComponent';
 import { login, signup, forgot_pass } from '@/services/api-auth';
-import '@/styles/Login.css';
-import Logo from '@/assets/images/logo/3.png';
 
-
-const LoginComp  = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [signupMode, setSignupMode] = useState<boolean>(false);
-  const [ForgotMode, setForgotMode] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
+const LoginComp = () => {
+  const [signupMode, setSignupMode] = useState(false);
+  const [forgotMode, setForgotMode] = useState(false);
+  const [message, setMessage] = useState('');
   const router = useRouter();
 
-  // Define translated login and signup fields
-  const loginFields = [
-    { label: 'User Name :', type: 'text', name: 'username', placeholder: 'Enter your username' },
-    { label: 'Password :', type: 'password', name: 'password', placeholder: 'Enter your password' }
-  ];
-
-  const signupFields = [
-    { label: 'Email :', type: 'email', name: 'email', placeholder: 'Enter your email' },
-    { label: 'User Name :', type: 'text', name: 'username', placeholder: 'Enter your username' },
-    { label: 'Password :', type: 'password', name: 'password', placeholder: 'Enter your password' }
-  ];
-
-  const forgotPasswordFields = [
-    { label: 'Email :', type: 'email', name: 'email', placeholder: 'Enter your email' }
-  ];
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMessage('');
-    }, 5000); // Clear the message after 5 seconds
-  
-    return () => clearTimeout(timer); // Clear the timer when the component unmounts or when the message changes
-  }, [message]); 
-
-  useEffect(() => {
-    setLoggedIn(sessionStorage.getItem('isLoggedIn') === 'true');
-    if (loggedIn) {
-      router.push('/login');
-    }
-  }, [loggedIn, router]);
+    const timer = setTimeout(() => setMessage(''), 5000);
+    return () => clearTimeout(timer);
+  }, [message]);
 
   const handleLogin = async (formData: { username: string; password: string }) => {
     try {
       const response = await login(formData.username, formData.password);
-      console.log('Logged in successfully');
-      setLoggedIn(true);
-      sessionStorage.setItem('isLoggedIn', 'true'); // Store authentication state in session storage
-      sessionStorage.setItem('csrfToken', response.csrfToken); // Store CSRF token
+      sessionStorage.setItem('isLoggedIn', 'true');
+      sessionStorage.setItem('csrfToken', response.csrfToken);
       router.push('/home');
-    } catch (error) {
-      console.error('Error:', error); // הדפסת השגיאה לקונסול
-      setMessage('User Name or password incorrect');
+    } catch {
+      setMessage('User Name or password incorrect'); 
     }
   };
-
+  
   const handleSignup = async (formData: { email: string; username: string; password: string }) => {
     try {
       await signup(formData.email, formData.username, formData.password);
-      setMessage('User Created!');
-      setSignupMode(!signupMode);
-    } catch (error) {
-      console.error('Error:', error); // הדפסת השגיאה לקונסול
-      setMessage('User not created');
+      setMessage('User Created!'); 
+      setSignupMode(false); 
+    } catch {
+      setMessage('User not created. Please try again.'); 
     }
   };
+  
 
   const handleForgotPassword = async (formData: { email: string }) => {
     try {
       await forgot_pass(formData.email);
-      alert('A link will be sent to the email to reset the password');
-      setForgotMode(false); // After submitting, revert to the login form
-    } catch (error) {
-      console.error('Error:', error); // הדפסת השגיאה לקונסול
-      setMessage('Failed to process the request');
-      setForgotMode(!ForgotMode);
+      alert('A link will be sent to your email to reset the password.');
+      setForgotMode(false);
+    } catch {
+      setMessage('Failed to process the request. Please try again.');
     }
   };
-
-  const navigateLogin = () => {
-    setSignupMode(false);
-    setForgotMode(!ForgotMode);
-  };
-
   return (
-    <div className="sidebar">
-      <div className="logo-lang-container">
-        <div onClick={navigateLogin} className="logo-container">
-        <Image src={Logo} alt="Logo" className="logo" />
-        </div>
-      </div>
-      {!ForgotMode ? (
-        <div>
-          <Form
-            onSubmit={signupMode ? handleSignup : handleLogin}
-            message={message}
-            fields={signupMode ? signupFields : loginFields}
-            buttonText={signupMode ? 'signup' : 'login'}
-            actionText={signupMode ? 'Create your account' :'Log in to your account'}
-            onActionClick={() => {
-              setMessage('');
-              setSignupMode(!signupMode);
-            }}
-            onForgotClick={() => {
-              setMessage('');
-              setForgotMode(true);
-            }}
-          />
-        </div>
-      ) : (
-        <div>
-          <div>
-            <ButtonLink onClick={navigateLogin}>{'<- back'}</ButtonLink>
-            <br />
-            <br />
-          </div>
-          <Form
-            onSubmit={handleForgotPassword}
-            message={message}
-            fields={forgotPasswordFields}
-            buttonText={'Reset Email'}
-            actionText={'Forgot Password?'}
-            onActionClick={() => setForgotMode(false)}
-            onForgotClick={() => setForgotMode(false)}
-          />
-        </div>
-      )}
-    </div>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(to right, #4facfe,rgb(0, 10, 65))',
+        padding: 2,
+      }}
+    >
+      <Paper
+        elevation={6}
+        sx={{
+          padding: 8,
+          maxWidth: 500,
+          width: '100%',
+          borderRadius: 3,
+          textAlign: 'center',
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            color: 'primary.main',
+            fontWeight: 'bold',
+          }}
+        >
+          {signupMode ? 'Sign Up' : forgotMode ? 'Forgot Password' : 'Log In'}
+        </Typography>
+        <br />
+        {message && (
+          <Typography color="error" variant="body2" gutterBottom>
+            {message}
+          </Typography>
+        )}
+        <FormComponent
+          signupMode={signupMode}
+          forgotMode={forgotMode}
+          handleLogin={handleLogin}
+          handleSignup={handleSignup}
+          handleForgotPassword={handleForgotPassword}
+          setSignupMode={setSignupMode}
+          setForgotMode={setForgotMode}
+          setMessage={setMessage}
+        />
+      </Paper>
+    </Box>
   );
 };
 

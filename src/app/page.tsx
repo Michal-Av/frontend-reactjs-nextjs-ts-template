@@ -7,7 +7,7 @@ import Todos from '../components/Layout/Todos';
 
 const Home: React.FC = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true); // מצב טעינה
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     const checkLoginStatus = () => {
